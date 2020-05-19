@@ -1,0 +1,45 @@
+input{
+    background: none;
+    border: none;
+    border-bottom: 2px solid rgb(255, 255, 255);
+    color: white;
+    transition: 0.15s linear;
+}
+
+input:focus{
+    outline: none;
+    border-bottom: 2px solid rgb(199, 139, 255);
+    transition: 0.15s linear;
+}
+
+button{
+    background: rgb(209, 209, 209);
+    border-radius: 3px;
+    border: none;
+    color: rgb(0, 0, 0);
+    padding: 5px 5px;
+    font-family: inherit;
+    transition: 0.15s linear;
+    font-size: 15px;
+}
+
+button:focus{
+    outline: none;
+}
+
+button:hover{
+    background: rgb(137, 11, 255);
+    color: rgb(255, 255, 255);
+    transition: 0.15s linear;
+}
+
+select{
+    background: none;
+    border: none;
+    color: white;
+    border-bottom: 2px solid rgb(255, 255, 255);
+}
+
+option{
+    color: black;
+}
