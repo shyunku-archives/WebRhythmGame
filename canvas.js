@@ -142,7 +142,7 @@ function captureNote(idx, hit_time){
 
         let real_pos = note_speed_offset * Math.pow(pos_factor, time_diff) - pos_adjustment_offset;
         let pos_error = real_pos - (ch*hitline_yoffset - pos_adjustment_offset);
-        console.log(real_pos + "," + pos_error);
+        
         if(pos_error <= allow_note_error_lower_limit && pos_error >= -allow_note_error_upper_limit){
             if(!el.isPassed){
                 // Success to Hit
@@ -157,8 +157,10 @@ function captureNote(idx, hit_time){
                 combo++;
                 el.isSuccess = true;
 
-                for(let i=0;i<hit_grade_result.length;i++){
-                    if(hit_accuracy <= hit_grade_result[i].accuracy_cut){
+                console.log(hit_time_error);
+
+                for(let i=hit_grade_result.length-1;i>=0;i--){
+                    if(Math.abs(hit_time_error) <= hit_grade_result[i].ms_error_cut){
                         hit_grade_result[i].total++;
                         break;
                     }
@@ -181,6 +183,11 @@ function drawHitEffects(){
         let proc_rate = (getCurrentMillis() - el.startTime)/hit_effect_alive_time;
         drawEffect(el, proc_rate)
     });
+}
+
+function beepLoop(){
+    // beepWithFreq(5, getRandomInt(minFreq, maxFreq), 50);
+    // beepWithFreq(5, 500, 50);
 }
 
 function createNote(idx){

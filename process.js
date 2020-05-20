@@ -57,11 +57,11 @@ const gw_offset_rate = 0.15;
 const gh_offset_rate = 0.12;
 let gux, gdy, gh, gw;
 const hit_grade_result = [
-    {accuracy_cut: 10, color: "#FF000050", total: 0, label: "Bad", label_color: "#FF0000FF"},        // 0~10%
-    {accuracy_cut: 40, color: "#FF880050", total: 0, label: "Normal", label_color: "#FF8800FF"},     // 10~40%
-    {accuracy_cut: 80, color: "#FFFF0050", total: 0, label: "Good", label_color: "#FFFF00FF"},     // 40~80%
-    {accuracy_cut: 95, color: "#00FF0050", total: 0, label: "Excellent", label_color: "#00FF00FF"},      // 80~95%
-    {accuracy_cut: 100, color: "#00AAFF50", total: 0, label: "Perfect", label_color: "#00AAFFFF"},      // 95~100%
+    {ms_error_cut: 20000, color: "#FF000050", total: 0, label: "Bad", label_color: "#FF0000FF"},
+    {ms_error_cut: 84, color: "#FF880050", total: 0, label: "Normal", label_color: "#FF8800FF"},
+    {ms_error_cut: 63, color: "#FFFF0050", total: 0, label: "Good", label_color: "#FFFF00FF"},
+    {ms_error_cut: 42, color: "#00FF0050", total: 0, label: "Excellent", label_color: "#00FF00FF"},
+    {ms_error_cut: 21, color: "#00AAFF50", total: 0, label: "Perfect", label_color: "#00AAFFFF"},
 ]
 let res_bar_max_value = 0;
 let res_bar_max_width;
@@ -108,6 +108,7 @@ $(()=>{
         if(bpm != 0){
             updateLoop = setInterval(()=>{
                 createRandomNote();
+                beepLoop();
                 // createNote(2);
             }, 60000/bpm);
         }
@@ -125,7 +126,7 @@ $(()=>{
 
     $(this).keypress(function(e){
         let kcode = e.keyCode;
-        
+
         switch(key_set_index){
             case 0: // 1 key
                 if(key_listener.space) captureNote(0, key_listener.spacet);
@@ -174,8 +175,6 @@ $(()=>{
     $(this).keydown(function(e){
         let kcode = e.keyCode;
 
-        console.log(kcode);
-
         switch(kcode){
         case 65: 
             if(!key_listener.a) key_listener.at = getCurrentMillis();
@@ -222,7 +221,6 @@ $(()=>{
 
     $(this).keyup(function(e){
         let kcode = e.keyCode;
-        console.log(kcode);
 
         switch(kcode){
             case 65: key_listener.a = false; break;
@@ -236,5 +234,12 @@ $(()=>{
             case 186: key_listener.l1r = false; break;
             case 222: key_listener.l2r = false; break;
         }
+    });
+
+    const initGraphBtn = $('#init_graph');
+    initGraphBtn.on("click", function(){
+        hit_grade_result.forEach(function(el){
+            el.total = 0;
+        });
     });
 });

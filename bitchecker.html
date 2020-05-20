@@ -12,6 +12,7 @@
         <script src="util.js"></script>
         <script src="process.js"></script>
         <script src="canvas.js"></script>
+        <script src="beep.js"></script>
     </head>
     <body>
         <div id="canvas_wrapper">
@@ -47,7 +48,8 @@
                 <div class="panel-menu-item">
                     <span class="category-menu-title">Control</span>
                     <button class="apply-button">Reset All</button>
-                    <button class="apply-button">Reset BPM</button>
+                    <button class="apply-button">Reset BPM to 180</button>
+                    <button class="apply-button" id="init_graph">Reset Graph</button>
                 </div>
                 <div class="panel-menu-item">
                     <span class="category-menu-title">Current Status</span>
@@ -70,14 +72,6 @@
                         </div>
                         <div class="option-item">
                             <span class="option-title">Score</span>
-                            <span class="option-cur-value-prop">0</span>
-                        </div>
-                        <div class="option-item">
-                            <span class="option-title">Error</span>
-                            <span class="option-cur-value-prop">0</span>
-                        </div>
-                        <div class="option-item">
-                            <span class="option-title">Accuracy</span>
                             <span class="option-cur-value-prop">0</span>
                         </div>
                     </div>
