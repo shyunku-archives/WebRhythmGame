@@ -386,6 +386,14 @@ function drawFrame(){
             if(key_listener.l) drawPushedLine(5);
             break;
         case 4:
+            if(key_listener.a) drawPushedLine(0);
+            if(key_listener.s) drawPushedLine(1);
+            if(key_listener.d) drawPushedLine(2);
+            if(key_listener.l) drawPushedLine(3);
+            if(key_listener.l1r) drawPushedLine(4);
+            if(key_listener.l2r) drawPushedLine(5);
+            break;
+        case 5:
             if(key_listener.s) drawPushedLine(0);
             if(key_listener.d) drawPushedLine(1);
             if(key_listener.f) drawPushedLine(2);

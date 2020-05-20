@@ -1,6 +1,7 @@
 const key_set = [
     ["="], ["D", "F", "J", "K"], ["D", "F", "=", "J", "K"],
-    ["S", "D", "F", "J", "K", "L"], ["S", "D", "F", "=", "J", "K", "L"],
+    ["S", "D", "F", "J", "K", "L"], ["A", "S", "D", "L", ";", "'"],
+    ["S", "D", "F", "=", "J", "K", "L"],
 ];
 
 // Global
@@ -9,7 +10,7 @@ let bpm = 0;
 let combo = 0;
 
 // Key Set
-let key_set_index = 3;
+let key_set_index = 4;
 let key_num = 6;
 let cur_key_set = key_set[key_set_index];
 
@@ -69,6 +70,7 @@ const res_bar_width_factor = 0.5;
 const res_bar_min_height = 3;      // default height
 
 let key_listener = {
+    a: false,
     s: false,
     d: false,
     f: false,
@@ -76,13 +78,18 @@ let key_listener = {
     j: false,
     k: false,
     l: false,
+    l1r: false,
+    l2r: false,
+    at: 0,
     st: 0,
     dt: 0,
     ft: 0,
     spacet: 0,
-    j: 0,
-    k: 0,
-    l: 0,
+    jt: 0,
+    kt: 0,
+    lt: 0,
+    l1rt: 0,
+    l2rt: 0,
 };
 
 $(()=>{
@@ -145,6 +152,14 @@ $(()=>{
                 if(key_listener.l) captureNote(5, key_listener.lt);
                 break;
             case 4:
+                if(key_listener.a) captureNote(0, key_listener.at);
+                if(key_listener.s) captureNote(1, key_listener.st);
+                if(key_listener.d) captureNote(2, key_listener.dt);
+                if(key_listener.l) captureNote(3, key_listener.lt);
+                if(key_listener.l1r) captureNote(4, key_listener.l1rt);
+                if(key_listener.l2r) captureNote(5, key_listener.l2rt);
+                break;
+            case 5:
                 if(key_listener.s) captureNote(0, key_listener.st);
                 if(key_listener.d) captureNote(1, key_listener.dt);
                 if(key_listener.f) captureNote(2, key_listener.ft);
@@ -159,49 +174,58 @@ $(()=>{
     $(this).keydown(function(e){
         let kcode = e.keyCode;
 
+        console.log(kcode);
+
         switch(kcode){
+        case 65: 
+            if(!key_listener.a) key_listener.at = getCurrentMillis();
+            key_listener.a = true; 
+            break;
         case 83: 
             if(!key_listener.s) key_listener.st = getCurrentMillis();
             key_listener.s = true; 
-            
             break;
         case 68:
             if(!key_listener.d) key_listener.dt = getCurrentMillis();
             key_listener.d = true; 
-            
             break;
         case 70:
             if(!key_listener.f) key_listener.ft = getCurrentMillis();
             key_listener.f = true; 
-            
             break;
         case 32:
             if(!key_listener.space) key_listener.spacet = getCurrentMillis();
             key_listener.space = true; 
-            
             break;
         case 74:
             if(!key_listener.j) key_listener.jt = getCurrentMillis();
             key_listener.j = true; 
-            
             break;
         case 75:
             if(!key_listener.k) key_listener.kt = getCurrentMillis();
-            key_listener.k = true; 
-            
+            key_listener.k = true;
             break;
         case 76:
             if(!key_listener.l) key_listener.lt = getCurrentMillis();
-            key_listener.l = true; 
-            
+            key_listener.l = true;
+            break;
+        case 186:
+            if(!key_listener.l1r) key_listener.l1rt = getCurrentMillis();
+            key_listener.l1r = true;
+            break;
+        case 222:
+            if(!key_listener.l2r) key_listener.l2rt = getCurrentMillis();
+            key_listener.l2r = true;
             break;
         }
     });
 
     $(this).keyup(function(e){
         let kcode = e.keyCode;
+        console.log(kcode);
 
         switch(kcode){
+            case 65: key_listener.a = false; break;
             case 83: key_listener.s = false; break;
             case 68: key_listener.d = false; break;
             case 70: key_listener.f = false; break;
@@ -209,6 +233,8 @@ $(()=>{
             case 74: key_listener.j = false; break;
             case 75: key_listener.k = false; break;
             case 76: key_listener.l = false; break;
+            case 186: key_listener.l1r = false; break;
+            case 222: key_listener.l2r = false; break;
         }
     });
 });
